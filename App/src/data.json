@@ -1,0 +1,22 @@
+{
+	"trains": [
+		{
+			"id": 1,
+			"name": "train1",
+			"displayName": "Train 1 - Express",
+			"seats": ["A1", "A2", "A3", "A4", "A5", "A6"]
+		},
+		{
+			"id": 2,
+			"name": "train2",
+			"displayName": "Train 2 - Superfast",
+			"seats": ["B1", "B2", "B3", "B4", "B5", "B6"]
+		},
+		{
+			"id": 3,
+			"name": "train3",
+			"displayName": "Train 3 - Passenger",
+			"seats": ["C1", "C2", "C3", "C4", "C5", "C6"]
+		}
+	]
+}

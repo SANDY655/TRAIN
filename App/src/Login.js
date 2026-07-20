@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
 import './App.css';
 
 function Login({ onLogin }) {
@@ -17,13 +16,7 @@ function Login({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/api/login', credentials); // Adjust the endpoint to your backend
-      onLogin(response.data); // Pass response data to onLogin
-    } catch (error) {
-      console.error('Error logging in:', error);
-      alert('Login failed. Please check your credentials.');
-    }
+    onLogin(credentials);
   };
 
   return (

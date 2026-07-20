@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios
 import './App.css';
 
 function Profile({ user, onUpdate }) {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(user);
 
-  // Load profile data (GET request)
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get(`/api/users/${user.email}`);
-        setProfileData(response.data);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    };
-
-    fetchProfile();
-  }, [user.email]);
+    setProfileData(user);
+  }, [user]);
 
   const handleChange = (e) => {
     setProfileData({
@@ -27,30 +16,10 @@ function Profile({ user, onUpdate }) {
     });
   };
 
-  // Update profile (PUT request)
   const handleUpdate = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.put(`/api/users/${profileData.email}`, profileData);
-      onUpdate(response.data); // Update the parent component with new data
-      setEditMode(false);
-      alert('Profile updated successfully');
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      alert('Failed to update profile. Please try again.');
-    }
-  };
-
-  // Create new profile (POST request example)
-  const handleCreateProfile = async () => {
-    try {
-      const response = await axios.post('/api/users', profileData);
-      setProfileData(response.data);
-      alert('Profile created successfully');
-    } catch (error) {
-      console.error('Error creating profile:', error);
-      alert('Failed to create profile.');
-    }
+    onUpdate(profileData);
+    setEditMode(false);
   };
 
   return (

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
 import './App.css';
 
 function Register({ onRegister }) {
@@ -20,13 +19,11 @@ function Register({ onRegister }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (userData.password === userData.confirmPassword) {
-      try {
-        const response = await axios.post('/api/register', userData); // Adjust the endpoint to your backend
-        onRegister(response.data); // Pass response data to onRegister
-      } catch (error) {
-        console.error('Error registering:', error);
-        alert('Registration failed. Please try again.');
-      }
+      onRegister({
+        name: userData.name,
+        email: userData.email,
+        password: userData.password
+      });
     } else {
       alert('Passwords do not match');
     }

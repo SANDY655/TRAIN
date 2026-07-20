@@ -4,8 +4,9 @@ import Home from './Home';
 import Register from './Register';
 import Login from './Login';
 import Profile from './Profile';
- import RouteSearch from './RouteSearch';
- import SeatSelection from './SeatSelection';
+import RouteSearch from './RouteSearch';
+import SeatSelection from './SeatSelection';
+import trainData from './data.json';
 import './App.css';
 
 
@@ -26,7 +27,7 @@ function App() {
     email: '',
     password: ''
   });
-  const [availableSeats, setAvailableSeats] = useState(trainData.trains[0].seats); // Use seats from the JSON file
+  const [availableSeats, setAvailableSeats] = useState(trainData.trains[0]?.seats || []);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [searchResults, setSearchResults] = useState(null);
 
@@ -58,6 +59,12 @@ function App() {
 
   const handleSearch = (searchData) => {
     setSearchResults(searchData);
+    setFormData((currentData) => ({
+      ...currentData,
+      train: searchData.train,
+      date: searchData.date
+    }));
+    handleTrainChange(searchData.train);
   };
 
   const handleSelectSeats = (seats) => {
@@ -75,8 +82,6 @@ function App() {
     e.preventDefault();
     setBookingConfirmed(true);
   };
-
-  const todayDate = new Date().toISOString().split('T')[0];
 
   return (
     <Router>
@@ -165,7 +170,7 @@ function App() {
                           >
                             {trainData.trains.map(train => (
                               <option key={train.id} value={train.name}>
-                                {train.name}
+                                {train.displayName}
                               </option>
                             ))}
                           </select>
